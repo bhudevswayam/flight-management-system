@@ -1,4 +1,4 @@
-const UserApi = {
+export const UserApi = {
   borrowFlight: async (flightNo, userId) => {
     const res = await fetch("/v1/user/borrow", {
       method: "POST",
@@ -37,4 +37,4 @@ const UserApi = {
   },
 }
 
-module.exports = { UserApi }
+// module.exports = { UserApi }

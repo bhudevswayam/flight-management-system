@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const FlightApi = {
   getAllFlights: async () => {
     const res = await fetch("/v1/flight", { method: "GET" })
@@ -8,6 +10,7 @@ export const FlightApi = {
     return res.json()
   },
   addFlight: async (data) => {
+    console.log(data);
     const res = await fetch("/v1/flight", {
       method: "POST",
       body: JSON.stringify(data),

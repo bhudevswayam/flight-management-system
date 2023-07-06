@@ -9,9 +9,6 @@ import {
     TextField,
     FormGroup,
     FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
     Typography,
 } from "@mui/material"
 import { BackendApi } from "../../client/backend-api"
@@ -64,7 +61,7 @@ export const FlightForm = () => {
                     newQuantityHistory.push({ quantity: newQuantity, modifiedAt: dayjs().utc().format() })
                 }
                 BackendApi.flight
-                    .patchFlightBygetFlightByNo(flightNo, {
+                    .patchFlightByNo(flightNo, {
                         ...flight,
                         priceHistory: newPriceHistory,
                         quantityHistory: newQuantityHistory,
@@ -81,10 +78,13 @@ export const FlightForm = () => {
             }
         }
     }
-
+    // const updateFlightField = (event) => {
+    //     const { name, value } = event.target;
+    //     setFlight((flight) => ({ ...flight, [name]: value }));
+    // };
     const updateFlightField = (event) => {
         const field = event.target
-        setFlight((flight) => ({ ...flight, [field.from]: field.value }))
+        setFlight((flight) => ({ ...flight, [field.name]: field.value }))
     }
 
     const validateForm = (event) => {
@@ -129,7 +129,7 @@ export const FlightForm = () => {
                     <FormGroup>
                         <FormControl className={classes.mb2}>
                             <TextField
-                                label="From"
+                                label="from"
                                 name="from"
                                 required
                                 value={flight.from}
@@ -141,7 +141,7 @@ export const FlightForm = () => {
                         </FormControl>
                         <FormControl className={classes.mb2}>
                             <TextField
-                                label="To"
+                                label="to"
                                 name="to"
                                 required
                                 value={flight.to}

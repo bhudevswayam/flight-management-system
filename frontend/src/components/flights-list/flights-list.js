@@ -23,7 +23,7 @@ import classes from "./styles.module.css"
 export const FlightsList = () => {
 
     const [flights, setFlights] = useState([]);
-    const [buyedFlight, setBorrowedFlight] = useState([])
+    const [buyedFlight, setBuyedFlight] = useState([])
     const [page, setPage] = useState(0)
     const [rowsPerPage, setRowsPerPage] = useState(10)
     const [activeFlightNo, setActiveFlightNo] = useState("")
@@ -38,7 +38,7 @@ export const FlightsList = () => {
 
     const fetchUserFlight = async () => {
         const { flights } = await BackendApi.user.getBorrowFlight()
-        setBorrowedFlight(flights)
+        setBuyedFlight(flights)
     }
 
     const deleteFlight = () => {
@@ -74,8 +74,8 @@ export const FlightsList = () => {
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>Name</TableCell>
-                                        <TableCell align="right">ISBN</TableCell>
-                                        <TableCell>Category</TableCell>
+                                        <TableCell align="right">FlightNO</TableCell>
+                                        <TableCell>To</TableCell>
                                         <TableCell align="right">Quantity</TableCell>
                                         <TableCell align="right">Available</TableCell>
                                         <TableCell align="right">Price</TableCell>
@@ -89,10 +89,10 @@ export const FlightsList = () => {
                                     ).map((flight) => (
                                         <TableRow key={flight.flightNo}>
                                             <TableCell component="th" scope="row">
-                                                {flight.from} - {flight.to}
+                                                {flight.from}
                                             </TableCell>
                                             <TableCell align="right">{flight.flightNo}</TableCell>
-                                            {/* <TableCell>{flight.category}</TableCell> */}
+                                            <TableCell>{flight.to}</TableCell>
                                             <TableCell align="right">{flight.quantity}</TableCell>
                                             <TableCell align="right">{flight.availableQuantity}</TableCell>
                                             <TableCell align="right">{`$${flight.price}`}</TableCell>
@@ -183,7 +183,7 @@ export const FlightsList = () => {
                                             <TableHead>
                                                 <TableRow>
                                                     <TableCell>From</TableCell>
-                                                    <TableCell align="right">ISBN</TableCell>
+                                                    <TableCell align="right">flightNo</TableCell>
                                                     <TableCell>To</TableCell>
                                                     <TableCell align="right">Price</TableCell>
                                                     <TableCell></TableCell>

@@ -23,7 +23,7 @@ import { makeChartOptions } from "./chart-options"
 import classes from "./styles.module.css"
 
 export const Flight = () => {
-    const { flightNum } = useParams()
+    const { flightNo } = useParams()
     const { user, isAdmin } = useUser()
     const navigate = useNavigate()
     const [flight, setFlight] = useState(null)
@@ -61,9 +61,9 @@ export const Flight = () => {
     }
 
     useEffect(() => {
-        if (flightNum) {
+        if (flightNo) {
             BackendApi.flight
-                .getFlightByflightNo(flightNum)
+                .getFlightByNo(flightNo)
                 .then(({ flight, error }) => {
                     if (error) {
                         NotificationManager.error(error)
@@ -74,7 +74,7 @@ export const Flight = () => {
                 .catch(console.error)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [flightNum])
+    }, [flightNo])
 
     return (
         flight && (
@@ -110,26 +110,26 @@ export const Flight = () => {
                             <Table>
                                 <TableBody>
                                     <TableRow>
-                                        <TableCell variant="head" component="th" width="200">
-                                            Name
-                                        </TableCell>
-                                        <TableCell>{flight.name}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
                                         <TableCell variant="head" component="th">
                                             flightNo
                                         </TableCell>
                                         <TableCell>{flight.flightNo}</TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell variant="head" component="th">
-                                            Category
+                                        <TableCell variant="head" component="th" width="200">
+                                            From
                                         </TableCell>
-                                        <TableCell>{flight.category}</TableCell>
+                                        <TableCell>{flight.from}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell variant="head" component="th">
-                                            Quantity
+                                            To
+                                        </TableCell>
+                                        <TableCell>{flight.to}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell variant="head" component="th">
+                                            Total Seats
                                         </TableCell>
                                         <TableCell>{flight.quantity}</TableCell>
                                     </TableRow>
@@ -177,7 +177,7 @@ export const Flight = () => {
                                     variant="contained"
                                     color="secondary"
                                     component={RouterLink}
-                                    to={`/admin/flights/${flightNum}/edit`}
+                                    to={`/admin/flights/${flightNo}/edit`}
                                 >
                                     Edit Flight
                                 </Button>
@@ -188,14 +188,14 @@ export const Flight = () => {
                                         onClick={borrowFlight}
                                         disabled={flight && user && flight.borrowedBy.includes(user._id)}
                                     >
-                                        Borrow
+                                        Book Ticket
                                     </Button>
                                     <Button
                                         variant="contained"
                                         onClick={returnFlight}
                                         disabled={flight && user && !flight.borrowedBy.includes(user._id)}
                                     >
-                                        Return
+                                        Cancle Ticket
                                     </Button>
                                 </>
                             )}
