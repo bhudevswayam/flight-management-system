@@ -74,7 +74,7 @@ export const AppLayout = () => {
     // setOpenInsDialog
     useEffect(() => {
         if (!user) {
-            navigate("/")
+            navigate("/flights")
         } else if (isAdmin) {
             navigate("/admin/flights/add")
         }
