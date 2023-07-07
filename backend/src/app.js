@@ -1,6 +1,6 @@
 const dotenv = require("dotenv")
 dotenv.config()
-
+port = process.env.PORT || 8080
 const express = require("express")
 const morgan = require("morgan")
 const cookieParser = require("cookie-parser")
@@ -48,7 +48,7 @@ connectDb()
     }
   })
   .then(() => {
-    app.listen(8080, () => console.log("Server is listening on http://localhost:8080"))
+    app.listen(port, () => console.log("Server is listening on http://localhost:8080"))
   })
   .catch((err) => {
     console.error("Failed to connect to database", err)

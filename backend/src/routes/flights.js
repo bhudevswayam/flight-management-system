@@ -17,7 +17,7 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:flightNo", async (req, res, next) => {
   try {
-    const flight = await FlightModel.findOne({ No: req.params.flightNo })
+    const flight = await FlightModel.findOne({ flightNo: req.params.flightNo })
     if (flight == null) {
       return res.status(404).json({ error: "flight not found" })
     }
@@ -34,9 +34,9 @@ router.get("/:flightNo", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const flight = await FlightModel.findOne({ No: req.body.No })
+    const flight = await FlightModel.findOne({ flightNo: req.body.filghtNo })
     if (flight != null) {
-      return res.status(400).json({ error: "flight with same No already found" })
+      return res.status(400).json({ error: "flight with same flightNo already found" })
     }
     const newflight = await FlightModel.create(req.body)
     return res.status(200).json({ flight: newflight })
@@ -47,11 +47,11 @@ router.post("/", async (req, res, next) => {
 
 router.patch("/:flightNo", async (req, res, next) => {
   try {
-    const flight = await FlightModel.findOne({ No: req.params.flightNo })
+    const flight = await FlightModel.findOne({ flightNo: req.params.flightNo })
     if (flight == null) {
       return res.status(404).json({ error: "flight not found" })
     }
-    const { _id, No, ...rest } = req.body
+    const { _id, flightNo, ...rest } = req.body
     const updatedflight = await flight.update(rest)
     return res.status(200).json({ flight: updatedflight })
   } catch (err) {
@@ -61,7 +61,7 @@ router.patch("/:flightNo", async (req, res, next) => {
 
 router.delete("/:flightNo", async (req, res, next) => {
   try {
-    const flight = await FlightModel.findOne({ No: req.params.flightNo })
+    const flight = await FlightModel.findOne({ flightNo: req.params.flightNo })
     if (flight == null) {
       return res.status(404).json({ error: "flight not found" })
     }

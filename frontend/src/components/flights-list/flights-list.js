@@ -73,13 +73,13 @@ export const FlightsList = () => {
                             <Table stickyHeader>
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Name</TableCell>
+                                        <TableCell align="right">From</TableCell>
+                                        <TableCell align="right">To</TableCell>
                                         <TableCell align="right">FlightNO</TableCell>
-                                        <TableCell>To</TableCell>
                                         <TableCell align="right">Quantity</TableCell>
                                         <TableCell align="right">Available</TableCell>
                                         <TableCell align="right">Price</TableCell>
-                                        <TableCell>Action</TableCell>
+                                        <TableCell align="left">Action</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -88,20 +88,21 @@ export const FlightsList = () => {
                                         : flights
                                     ).map((flight) => (
                                         <TableRow key={flight.flightNo}>
-                                            <TableCell component="th" scope="row">
+                                            <TableCell align="right">
                                                 {flight.from}
                                             </TableCell>
+                                            <TableCell align="right">{flight.to}</TableCell>
                                             <TableCell align="right">{flight.flightNo}</TableCell>
-                                            <TableCell>{flight.to}</TableCell>
                                             <TableCell align="right">{flight.quantity}</TableCell>
                                             <TableCell align="right">{flight.availableQuantity}</TableCell>
-                                            <TableCell align="right">{`$${flight.price}`}</TableCell>
+                                            <TableCell align="right">{`Rs. ${flight.price}`}</TableCell>
                                             <TableCell>
                                                 <div className={classes.actionsContainer}>
                                                     <Button
                                                         variant="contained"
                                                         component={RouterLink}
                                                         size="small"
+                                                        align="right"
                                                         to={`/flights/${flight.flightNo}`}
                                                     >
                                                         View
@@ -197,7 +198,7 @@ export const FlightsList = () => {
                                                         </TableCell>
                                                         <TableCell align="right">{flight.flightNo}</TableCell>
                                                         <TableCell>{flight.to}</TableCell>
-                                                        <TableCell align="right">{`$${flight.price}`}</TableCell>
+                                                        <TableCell align="right">{`Rs. ${flight.price}`}</TableCell>
                                                         <TableCell>
                                                             <div className={classes.actionsContainer}>
                                                                 <Button

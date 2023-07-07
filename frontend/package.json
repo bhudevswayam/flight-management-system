@@ -9,7 +9,7 @@
     "eject": "react-scripts eject",
     "lint": "prettier --write ."
   },
-  "proxy": "http://localhost:8080",
+  "proxy": "process.env.BASE_URL",
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",

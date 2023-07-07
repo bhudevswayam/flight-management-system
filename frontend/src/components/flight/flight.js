@@ -143,7 +143,7 @@ export const Flight = () => {
                                         <TableCell variant="head" component="th">
                                             Price
                                         </TableCell>
-                                        <TableCell>${flight.price}</TableCell>
+                                        <TableCell>Rs.{flight.price}</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>

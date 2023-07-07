@@ -22,11 +22,27 @@ import { FlightForm } from "../flight-form/flight-form"
 import { Flight } from "../flight/flight"
 import { WithLoginProtector } from "../access-control/login-protector"
 import { WithAdminProtector } from "../access-control/admin-protector"
+import { InsDialog } from "./instruction"
 
+const MyComponent = () => {
+    const [showAlert, setShowAlert] = useState(true);
+
+    useEffect(() => {
+        const isMobile = window.innerWidth <= 768; // Adjust the breakpoint as needed
+
+        if (isMobile && showAlert) {
+            alert("Please use desktop mode");
+            setShowAlert(false);
+        }
+    }, [showAlert]);
+
+    return null;
+};
 
 export const AppLayout = () => {
-
     const [openLoginDialog, setOpenLoginDialog] = useState(false)
+    const [openInsDialog, setOpenInsDialog] = useState(false)
+
     const [anchorElUser, setAnchorElUser] = useState(null)
     const { user, loginUser, logoutUser, isAdmin } = useUser()
     const navigate = useNavigate()
@@ -47,12 +63,15 @@ export const AppLayout = () => {
     const handleLoginClose = () => {
         setOpenLoginDialog(false)
     }
+    const handleInsClose = () => {
+        setOpenInsDialog(false)
+    }
 
     const handleLogout = () => {
         logoutUser()
         handleCloseUserMenu()
     }
-
+    // setOpenInsDialog
     useEffect(() => {
         if (!user) {
             navigate("/")
@@ -64,6 +83,8 @@ export const AppLayout = () => {
 
     return (
         <>
+            <MyComponent />
+
             <AppBar position="static">
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
@@ -81,9 +102,10 @@ export const AppLayout = () => {
                                     color: "white",
                                 }}
                             >
-                                Flight Management System
+                                SWAYAM AIRLINES
                             </Typography>
                         </Link>
+                        {/* <h1>h1</h1> */}
                         <Box
                             sx={{
                                 flexGrow: 0,
@@ -113,7 +135,7 @@ export const AppLayout = () => {
                                         onClose={handleCloseUserMenu}
                                     >
                                         <MenuItem onClick={handleCloseUserMenu}>
-                                            <Typography textAlign="center">Dashboard</Typography>
+                                            <Typography textAlign="center" to>Dashboard</Typography>
                                         </MenuItem>
                                         <MenuItem onClick={handleLogout}>
                                             <Typography textAlign="center">Logout</Typography>
@@ -121,14 +143,29 @@ export const AppLayout = () => {
                                     </Menu>
                                 </>
                             ) : (
+                                <>
+                                <Typography  sx={{display : 'flex'}}>
                                 <Button
                                     onClick={() => {
                                         setOpenLoginDialog(true)
                                     }}
-                                    sx={{ my: 2, color: "white", display: "block" }}
+
+                                    sx={{ my: 2, color: "white", display: "grid" }}
                                 >
                                     Login
                                 </Button>
+                                <Button
+                                    onClick={() => {
+                                        setOpenInsDialog(true)
+                                    }}
+
+                                    sx={{ my: 2, color: "white", display: "grid" }}
+                                >
+                                    Instruction
+                                </Button>
+                                
+                                </Typography>
+                                </>
                             )}
                         </Box>
                     </Toolbar>
@@ -136,6 +173,7 @@ export const AppLayout = () => {
             </AppBar>
             <Routes>
                 <Route path="/flights" exact element={<FlightsList />} />
+
                 <Route
                     path="/flights/:flightNo"
                     element={
@@ -171,6 +209,10 @@ export const AppLayout = () => {
                 open={openLoginDialog}
                 handleSubmit={handleLoginSubmit}
                 handleClose={handleLoginClose}
+            />
+            <InsDialog
+                open={openInsDialog}
+                handleClose={handleInsClose}
             />
         </>
     )
